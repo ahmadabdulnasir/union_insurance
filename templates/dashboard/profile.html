@@ -1,0 +1,39 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Profile {% endblock title %}
+
+{% block extra_head %} 
+
+{% endblock extra_head %}
+
+      {% block content %}  
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard:index' %}">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+
+        <div class="card card-register mx-auto mt-5">
+          <div class="card-header text-center">Update Your Profile</div>
+          <div class="card-body">
+            <form method="POST">
+              <input name='product_slug' type="hidden" value= "{{product.slug}}" >
+              {% csrf_token %}
+              {{ form|crispy }}
+              <button class='col-md-12 btn btn-primary' type="submit">Save &raquo;</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+      {% endblock content %} 
+
+  {% block extra_scripts %} 
+  <!-- Demo scripts for this page-->
+  {% endblock extra_scripts %}

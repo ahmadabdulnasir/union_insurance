@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{% block head_title %} {% endblock %}{% block title %} {% endblock title %} - Union Insurance</title>
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicons/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicons/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicons/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'favicons/site.webmanifest' %}">
+  <link rel="mask-icon" href="{% static 'favicons/safari-pinned-tab.svg' %}" color="#5bbad5">
+  <link rel="shortcut icon" href="{% static 'favicons/favicon.ico' %}">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="{% static 'favicons/browserconfig.xml' %}">
+  <meta name="theme-color" content="#ffffff">
+    
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+   <link href="{% static 'core/css/style.css' %}" rel="stylesheet">
+  {% block extra_head %} 
+    
+  {% endblock extra_head %}
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+  </style>
+</head>
+
+{% include "core/navbar.html" %}
+
+<body class="bg-light" id="page-top"> 
+    <div class="card mx-auto mt-5 container-fluid bg-secondary">
+    {% if messages %}
+    <div class="clearfix"></div>
+    <br />
+        {% for message in messages %}
+        <div class="clearfix alert {{ message.tags }} text-center alert-dismissible fade show badge badge-block text-center" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+    <hr class="my-3" />
+    {% block content %}
+    {% endblock content %}
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top btn btn-floating btn-large rounded-pill bg-warning float-right" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+    
+    {% block extra_body %}
+    {% endblock extra_body %}
+    <div class="clearfix"> </div>
+    {% include "core/footer.html" %}
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+    <!-- Initializations -->
+    <script type="text/javascript">
+      // Animations initialization
+      new WOW().init();
+
+    </script>
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+    
+    
+</body>
+</html>

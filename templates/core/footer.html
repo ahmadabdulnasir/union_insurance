@@ -1,0 +1,90 @@
+<footer class="page-footer text-center font-small mdb-color darken-2 mt-4 fadeIn">
+  <!--Call to action -->
+  <div class="pt-4">
+      <a class="btn btn-outline-white" href="{% url 'insurance:list' %}" role="button">Ge Insurance Now 
+        <i class="fas fa-hand-holding-usd text-warning"></i>
+      </a> 
+  </div>
+  <!-- /.Call to action-->
+  <hr class="my-4">
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left">
+    <!-- Grid row -->
+    <div class="row">
+    <!-- Grid column -->
+      <div class="col-md-3 mx-auto">
+        <!-- Links -->
+        <h5 class="font-weight-bold mt-3 mb-4">Our Company</h5>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'core:page' 'about' %}" class="py-2 d-block">About</a></li>
+          <li><a href="{% url 'core:page' 'team' %}" class="py-2 d-block">Team</a></li>
+          <li><a href="{% url 'core:page' 'terms' %}" class="py-2 d-block">Terms &amp; Conditions</a></li>
+          <li><a href="{% url 'core:page' 'privacy' %}" class="py-2 d-block">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <!-- ./Grid column -->
+      <hr class="clearfix w-100 d-md-none">
+      <!-- Grid column -->
+      <div class="col-md-3 mx-auto">
+        <!-- Links -->
+        <h5 class="font-weight-bold mt-3 mb-4">Useful Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'core:page' 'faqs' %}" class="py-2 d-block">FAQs</a></li>
+          <li><a href="{% url 'core:contact' %}" class="py-2 d-block">Contact</a></li>
+        </ul>
+      </div>
+      <!-- ./Grid column -->
+      <hr class="clearfix w-100 d-md-none">
+      <!-- Grid column -->
+      <div class="col-md-3 mx-auto">
+        <!-- Links -->
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Contact</h5>
+        <ul class="list-unstyled pb-4">
+          <li><a href="{% url 'core:contact' %}" class="py-2 d-block"><span class="fas fa-headphones"></span> Contact</a></li>
+            {% for phone in phones %}
+            <li><span class="fa fa-phone-square"></span><a href="call:{{phone.info}}"> Phone {{forloop.counter}}: <span class="text">{{phone.info}}</span></a></li>
+            {% endfor %}
+          <li><a href="mail:{{email}}"><span class="far fa-envelope"></span><span class="text"> {{email}}</span></a></li>
+          <li><span class="fas fa-map-marker text-warning"></span><span class="text"> {{address}}</span></li>
+        </ul>
+      </div>
+      <!-- ./Grid column -->
+      <hr class="clearfix w-100 d-md-none right ">
+      <div class="col-md-3 mx-auto">
+      <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Social</h5>
+        <ul class="list-unstyled pb-4">
+          <li>
+            <a href="{{facebook}}" target="_blank">
+              <i class="fab fa-facebook-f mr-3"></i>
+            </a>
+            <a href="{{twitter}}" target="_blank">
+              <i class="fab fa-twitter mr-3"></i>
+            </a>
+            <a href="{{youtube}}" target="_blank">
+              <i class="fab fa-youtube mr-3"></i>
+            </a>
+            <a href="{{instagram}}" target="_blank">
+              <i class="fab fa-instagram mr-3"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- ./Grid column -->
+    </div>
+    <!-- ./Grid row -->
+  </div>
+  <!-- ./Footer Links -->   
+  <!--Copyright-->
+  <div class="footer-copyright py-3">
+     <span class="badge badge-dark-green-ic">
+      © 2019 Copyright:
+      <a href="{% url 'core:home' %}" > UNION INSURANCE </a> 
+     </span>
+     <span class="badge badge-secondary">
+      <i class="fa fa-server text-info "></i> Powered  By:  &nbsp;<a href="{{provider.website}}" target="_blank">DaboLinux Technologies</a>
+    </span>
+  </div>
+ 
+  <!--/.Copyright-->
+
+</footer>

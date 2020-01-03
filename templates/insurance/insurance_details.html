@@ -1,0 +1,147 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}{{object}} {% endblock title %}}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'core/vendors/sweetalert/sweetalert.css' %}">
+{% endblock extra_head %}
+{% block content %}
+
+  <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+        <div class="col-md-12 mb-4">
+          <h4 class="card-title">{{object.title}}</h4>
+        </div>
+        <!--Grid column--> 
+        <div class="col-md-6 mb-4">
+
+          <img src="{{object.image.url}}" class="img-fluid card-img" alt="{{object.title}}">
+          
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <!--Content-->
+          <div class="p-4 bg-light ">
+            {% if item.tags %}
+            <div class="mb-3">
+              {% for tag in item.tags.all %}
+                <a href="">
+                  <span class="badge {{tag.color}} mr-1">{{ tag }}</span>
+                </a>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+
+            <p class="lead">
+              {% if object.discount_price %}
+              <span class="mr-1">
+                <del>₦{{ object.price }}</del>
+              </span>
+              <span>₦{{ object.discount_price }}</span>
+              {% else %}
+              <span>₦{{ object.price }}</span>
+              {% endif %}
+            </p>
+
+            <p class="lead font-weight-bold">Description</p>
+
+            <p>{{ object.description }}</p>
+            <div class="row">
+              <div class="col-md-4">
+                <a type="button" onclick="payWithPaystack()" class="btn btn-primary btn-md">
+                  Get Now
+                  <i class="fas fa-credit-card"></i>
+                  {% comment %}  {% endcomment %}
+                </a>
+              </div>
+            </div>
+          </div>
+          <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+
+
+    </div>
+
+    <form >
+      {% csrf_token %}
+      <script src="https://js.paystack.co/v1/inline.js"></script>
+    
+    <script>
+      function payWithPaystack(){
+        var handler = PaystackPop.setup({
+        key: '{{payment_key}}',
+        email: '{{ request.user.email }}',
+        amount: {{ object.amount_in_kobo }},
+        currency: "NGN",
+        
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "User ID",
+              variable_name: "Profile",
+              value: "{{ request.user.profile.uid }}"
+            },
+            {
+            display_name: "User Email",
+            variable_name: "user_email",
+            value: '{{ request.user.email }}'
+            }
+          ]
+        },
+
+        callback: function(response){
+          //alert('success. transaction ref is ' + response.reference);
+          console.log(response);
+          const data = {
+            status : response.status,
+            reference : response.reference,
+            trans : response.trans,
+            transaction : response.transaction,
+            trxref : response.trxref,
+            message : response.message,
+            insurance_slug :  '{{ object.slug }}',
+            next_url : "{{ request.get_full_path }}",
+          };
+          $.ajax( {
+            url : "{% url 'insurance:payment' %}",
+            type : 'POST',
+            data : data,
+            // dataType = JSON,
+            success : function(result){
+              var msg = result['message'];
+              var next_url = result['next_url'];
+              swal('Success', msg, 'success');
+              window.location.href = next_url;
+            },
+            error: function(error){
+              swal('Error', 'An Error Occur !!!, Please Try Again', 'error');
+            }
+            }
+          )   
+
+        },
+        onClose: function(){
+          swal('Abort Transaction', 'Are you Sure?', 'error');
+        }
+        });
+        handler.openIframe();
+      }
+      </script>
+    </form>
+  </main>
+
+{% endblock content %}
+{% block extra_scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static 'core/js/django.csrf.js' %}"></script>
+<script src="{% static 'core/vendors/sweetalert/sweetalert.min.js' %}"></script>
+{% endblock extra_scripts %}

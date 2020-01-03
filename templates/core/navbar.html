@@ -1,0 +1,75 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark white double-nav scrolling-navbar">
+  <div class="container">
+
+  <!-- Brand -->
+  <a class="navbar-brand waves-effect" href="/">
+    <i class="fas fa-home text-primary"></i>
+  </a>
+
+  <!-- Collapse -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Links -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <!-- Left -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link waves-effect" href="{% url 'insurance:list' %}">
+        <i class="fas fa-hand-holding-usd text-success"></i>
+       </a>
+      </li> 
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"><strong class="blue-text">Union</strong></a>
+        <div class="dropdown-menu dropdown-primary bg-light" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'core:page' 'about' %}">About</a>
+          <a class="dropdown-item" href="{% url 'core:contact' %}">Contact Us</a>
+          <a class="dropdown-item" href="{% url 'core:page' 'fags' %}">FAQs</a>
+          
+        </div>
+      </li>
+    </ul>
+
+    <!-- Right -->
+    <ul class="navbar-nav nav-flex-icons">
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a href="{% url 'dashboard:index' %}" class="nav-link waves-effect">
+          <i class="fas fa-user-circle text-secondary z-depth-1 "></i>
+          <span class="clearfix d-none d-sm-inline-block"></span>
+        </a>
+      </li>
+      {% if is_admin %}
+        <li class="nav-item">
+          <a href="{% url 'admin:index' %}" class="nav-link waves-effect">
+            <i class="fa fa-user-secret text-warning z-depth-1 "></i>
+          </a>
+        </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+          <span class="clearfix d-none d-sm-inline-block"><i class="fas fa-sign-out-alt"></i>Logout</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+          <span class="clearfix d-none d-sm-inline-block"><i class="fas fa-sign-in-alt"></i>Login</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+          <span class="clearfix d-none d-sm-inline-block"><i class="fas fa-user-plus"></i>Signup</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  </div>
+</nav>

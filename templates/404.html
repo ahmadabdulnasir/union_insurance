@@ -1,0 +1,33 @@
+﻿{% extends "core/base.html" %}
+{% load static %}
+{% block title %} Login {% endblock title %}
+{% block extra_head %} 
+<!-- Bootstrap Core Css -->
+<link href="{% static 'core/extra/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+<!-- Waves Effect Css -->
+<link href="{% static 'core/extra/plugins/node-waves/waves.css' %}" rel="stylesheet" />
+<!-- Custom Css -->
+<link href="{% static 'core/extra/css/style.css' %}" rel="stylesheet">
+{% endblock extra_head %}
+{% block body_class %} four-zero-four {% endblock body_class %}
+{% block content %}
+    <div class="four-zero-four-container">
+        <div class="error-code">404</div>
+        <div class="error-message">This page doesn't exist</div>
+        <div class="button-place">
+            <a href="{% url 'core:home' %}" class="btn btn-default btn-lg waves-effect">GO TO HOMEPAGE</a>
+        </div>
+    </div>
+
+    {% endblock content %} 
+
+    {% block extra_scripts %}
+    <!-- Jquery Core Js -->
+    <script src="{% static 'core/extra/plugins/jquery/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="{% static 'core/extra/plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="{% static 'core/extra/plugins/node-waves/waves.js' %}"></script>
+    {% endblock extra_scripts %}

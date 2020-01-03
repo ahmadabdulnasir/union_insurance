@@ -1,0 +1,203 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load string_format %}
+{% block title %} Contact Us {%endblock%}
+{% block extra_head %}
+<meta property="og:title" content="Contact Us">
+<meta property="og:description" content="{{ page.sub_title }} - {{ page.title }}">
+<meta property="og:image" content="{% if page.img %} {{ page.img.url }} {% else %} {% static 'favicon/apple-touch-icon.png' %} {% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+{% endblock extra_head %}
+<style>
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+.google-maps {
+    position: relative;
+    
+    height: 0;
+    overflow: hidden;
+}
+.google-maps iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+</style>
+{% block content %}
+<!--Main layout-->
+  <main class="mt-5 pt-5">
+    <div class="container-fluid bg">
+      <!--Section: Cards-->
+      <section class="text-center">
+        <!--Grid row-->
+        <div class="row mb-4 fadeIn">
+            <!--Grid column-->
+            <div class="col-md-8 mb-8">
+                <!--Section: Contact v.2-->
+                <section class="mb-4 card">
+                    <!--Section heading-->
+                    <h2 class="h1-responsive font-weight-bold text-center my-4 card-header">Contact us</h2>
+                    <!--Section description-->
+                    <p class="text-center w-responsive mx-auto mb-5">
+                    Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
+                    a matter of hours to help you.
+                    </p>
+                    <div class="row card-body">
+                        <!--Grid column-->
+                        <div class="col-md-12 mb-md-0 mb-5">
+                            <form action="{% url 'audience:contact' %}" method="POST" class="bg-white p-5 contact-form">
+                                {% csrf_token %}
+                                <input name='next_url' type="hidden" value= "{{ request.get_full_path }}" >
+                                <!--Grid row-->
+                                <div class="row">
+                                    <!--Grid column-->
+                                    <div class="col-md-12">
+                                        <div class="md-form mb-0">
+                                            <input type="text" id="name" name="name" required="required" class="form-control">
+                                            <label for="name" class="">Your name</label>
+                                        </div>
+                                    </div>
+                                    <!--Grid column-->
+
+                                    <!--Grid column-->
+                                    <div class="col-md-12">
+                                        <div class="md-form mb-0">
+                                            <input type="text" id="email" name="email" required="required" class="form-control">
+                                            <label for="email" class="">Your email</label>
+                                        </div>
+                                    </div>
+                                    <!--Grid column-->
+                                </div>
+                                <!--Grid row-->
+                                <!--Grid row-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="md-form mb-0">
+                                            <input type="text" id="subject" name="subject" required="required" class="form-control">
+                                            <label for="subject" class="">Subject</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+
+                                <!--Grid row-->
+                                <div class="row">
+
+                                    <!--Grid column-->
+                                    <div class="col-md-12">
+
+                                        <div class="md-form">
+                                            <textarea type="text" id="message" name="message" class="form-control md-textarea" required="required"></textarea>
+                                            <label for="message">Your message</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+                                <div class="text-center text-md-left">
+                                    <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                                </div>
+                                
+                            </form>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-12 google-maps">
+          <div class="gmap_canvas"><iframe width="400" height="300" id="gmap_canvas" src="https://maps.google.com/maps?q={{address|ws_to_20|com_to_non}}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+          </div><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style>
+        </div>
+      </div>
+                        {% comment %} <div class="google-maps">
+                            <iframe src="https://maps.google.com/maps?q={{address|ws_to_20|com_to_non}}&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                            width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div> {% endcomment %}
+                                                    
+                        
+
+                    </div>
+
+                </section>
+                <!--Section: Contact v.2-->
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-md-4 mb-8">
+                <!--Card-->
+                <div class="card">
+                    <!--Title-->
+                    <div class="card-header">
+                    <h4 class="card-title">How to Reach Us</h4>
+                    </div>
+                    <!--Card content-->
+                    <div class="card-body">
+                        {% if show_body %}
+                        <!--Card image-->
+                        {% if page.img %}
+                            <img src="{{page.img.url}}" class="img-fluid card-img" alt="{{page.title}}">
+                        {% endif %}
+                        <!--Text-->
+                        <p class="card-text">
+                            {{ page.body|safe }}
+                        </p>
+                        {% else %}
+                        <ul class="list-unstyled mb-0">
+                            <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                                <p>{{address}}</p>
+                            </li>
+
+                            <li>
+                                {% for phone in phones %}
+                                <i class="fas fa-phone mt-4 fa-2x"></i>
+                                <p><a href="call:{{phone.info}}">{{phone.info}}</a></p>
+                                {% endfor %}
+                            </li>
+
+                            <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                                <p>
+                                <a href="mail:{{email}}">{{email}}</a>
+                                </p>
+                            </li>
+                        </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <!--/.Card-->
+            </div>
+            <!--Grid column-->
+            
+        </div>
+        <!--Grid row-->
+      </section>
+      <!--Section: Cards-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+
+
+  {% endblock content %}
+
+  {% block extra_body %}
+  
+  {% endblock extra_body %}
+  {% block extrajs %}
+
+  {% endblock extrajs %}

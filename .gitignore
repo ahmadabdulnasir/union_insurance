@@ -1,0 +1,16 @@
+.env
+.vscode
+.idea
+.venv
+venv
+vm
+*.pyc
+__pycache__
+.ebextensions
+.spyproject
+bak
+myTestes
+.requirements.txt.bak
+USE.INFO
+templates/src
+dabolinux-clients-demo-32103b022bf6.json
