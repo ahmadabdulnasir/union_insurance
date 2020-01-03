@@ -1,19 +1,14 @@
-# ACCENCIS Website Project using Django by DaboLinux Technologies
+# Union Insurance Website Project using Django by DaboLinux Technologies
 
-accencis.biz
+unioninsurance.com
 
 DaboLinux Technologies © 2019
 
 ## Features
 
 - User Authentication
-- View of Product ( Male Collection )
-- Rate Product
-- Buy Product
-- Add Product to cart
-- Recommendation
-- Feature Products
-- Requests for Toiloring
+- View of Insurance
+- Buy Insurance
 - Payment System
 
 ## How to Contribute

@@ -6,10 +6,15 @@ DaboLinux Technologies © 2019
 :: Ahmad Abdulnasir Shuaib <me@ahmadabdulnasir.com.ng>
 
 ## Todo List
-1. Requests Fashioninsta Front
-2. Sallers Dashboard
-3. Create a new pull request and await merge
-4. Category page
+- [x] User Authentication 
+- [x] Insurance Model
+- [x] Insurance View/url
+- [x] Insurance Front end
+- [x] Payment
+- [x] User Dashboard
+
+
+
 
 ## Idea List
 
